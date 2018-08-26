@@ -1,6 +1,8 @@
 const app = require("express")();
 const multer = require('multer');
-
+const bodyParser = require('body-parser');
+var urlencodedParser = bodyParser.urlencoded({extended: true});
+//storage and filename config.
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, 'uploads/')
@@ -10,14 +12,12 @@ var storage = multer.diskStorage({
     }
   })
 
-
 const upload = multer({ storage: storage });
-const bodyParser = require('body-parser');
+
 app.set('view engine', 'ejs');
-var urlencodedParser = bodyParser.urlencoded({extended: true});
 app.use(urlencodedParser);
 app.use(bodyParser.json());
-// app.use();
+
 app.get('/', (req,res)=>{
     res.render('form');
 });
